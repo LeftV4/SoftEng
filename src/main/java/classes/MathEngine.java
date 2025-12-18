@@ -1,4 +1,4 @@
-package Classes;
+package classes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +48,7 @@ public class MathEngine {
             int a = random.nextInt(5 * (difficulty - 2)) + 2;
             int b = random.nextInt(10) + 2;
             result = a * b;
-            expr = a + " × " + b;
+            expr = a + " x " + b;
         } else {
             // REVERSE DIVISION: Generate Answer first, then calculate Question
             int answer = random.nextInt(10) + 2;

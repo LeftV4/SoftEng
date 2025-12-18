@@ -1,4 +1,4 @@
-package Classes;
+package classes;
 
 import javafx.application.Application;
 

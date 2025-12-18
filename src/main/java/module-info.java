@@ -22,6 +22,6 @@ module org.example.softeng {
     requires com.almasb.fxgl.all;
 
     //Permissions
-    opens Classes to javafx.fxml;
-    exports Classes;
+    opens classes to javafx.fxml;
+    exports classes;
 }

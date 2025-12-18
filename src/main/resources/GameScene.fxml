@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Arc?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Classes.GameController">
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.GameController">
 
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

@@ -162,7 +162,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.example.softeng/Classes.HelloApplication</mainClass>
+                            <mainClass>org.example.softeng/classes.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

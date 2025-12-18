@@ -1,4 +1,4 @@
-package Classes;
+package classes;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -68,7 +68,7 @@ public class GameController {
         timerLabel.setText(String.valueOf(TIME_LIMIT));
         timerArc.setLength(360);
         timerArc.setStartAngle(90);
-        timerArc.setStroke(Color.web("#46178f"));
+        timerArc.setStroke(Color.GREEN);
 
         if (timeline != null) timeline.stop();
 
@@ -97,7 +97,7 @@ public class GameController {
 
                 // Panic colors
                 if (secondsLeft <= 3) timerArc.setStroke(Color.RED);
-                else if (secondsLeft <= 5) timerArc.setStroke(Color.ORANGE);
+                else if (secondsLeft <= 6) timerArc.setStroke(Color.ORANGE);
             }
         }));
 
@@ -125,7 +125,7 @@ public class GameController {
             score++;
             scoreLabel.setText("Score: " + score);
 
-            if (score % 3 == 0) difficulty++;
+            if (score % 3 == 0) difficulty += 3;
 
             loadNextQuestion();
         } else {
