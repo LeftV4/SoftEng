@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
-<?import eu.hansolo.tilesfx.Tile?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Circle?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="Classes.GameController"
-      style="-fx-background-color: #f2f2f2;">
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Classes.GameController">
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
     <HBox alignment="CENTER_RIGHT" spacing="10">
-        <Label text="Score: 0" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <Label fx:id="scoreLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Score: 0" />
     </HBox>
+    <StackPane prefHeight="150.0" prefWidth="200.0">
+        <Circle fill="TRANSPARENT" radius="80" stroke="e0e0e0" strokeWidth="15" />
+        <Group>
+            <Circle fill="TRANSPARENT" radius="110" stroke="TRANSPARENT" />
+            <Arc fx:id="timerArc" fill="TRANSPARENT" length="360" radiusX="80" radiusY="80" startAngle="90" stroke="#46178f" strokeLineCap="ROUND" strokeWidth="15" type="OPEN" />
+        </Group>
+        <Label fx:id="timerLabel" style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #333;" text="10" />
+    </StackPane>
 
-    <Label fx:id="questionLabel" text="Ready?" wrapText="true"
-           style="-fx-font-size: 48px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+   <VBox fx:id="questionBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-font-size: 48;">
+      <children>
+         <Label fx:id="questionLabel" text="Ready?" />
+      </children></VBox>
+     
+    <GridPane alignment="CENTER" hgap="15" vgap="15">
+        <Button fx:id="btn1" prefHeight="100" prefWidth="250" styleClass="btn, btn-danger, btn-lg" text="Option A" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-    <Tile fx:id="timerTile" skinType="CIRCULAR_PROGRESS"
-          prefWidth="200" prefHeight="200"
-          backgroundColor="#f2f2f2"/>
+        <Button fx:id="btn2" prefHeight="100" prefWidth="250" styleClass="btn, btn-primary, btn-lg" text="Option B" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-    <GridPane hgap="15" vgap="15" alignment="CENTER">
-        <Button fx:id="btn1" text="Option A" prefWidth="250" prefHeight="100"
-                styleClass="btn, btn-danger, btn-lg"
-                GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Button fx:id="btn3" prefHeight="100" prefWidth="250" styleClass="btn, btn-warning, btn-lg" text="Option C" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-        <Button fx:id="btn2" text="Option B" prefWidth="250" prefHeight="100"
-                styleClass="btn, btn-primary, btn-lg"
-                GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-        <Button fx:id="btn3" text="Option C" prefWidth="250" prefHeight="100"
-                styleClass="btn, btn-warning, btn-lg"
-                GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-
-        <Button fx:id="btn4" text="Option D" prefWidth="250" prefHeight="100"
-                styleClass="btn, btn-success, btn-lg"
-                GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Button fx:id="btn4" prefHeight="100" prefWidth="250" styleClass="btn, btn-success, btn-lg" text="Option D" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
+
+    <Button fx:id="restartBtn" managed="false" style="-fx-font-weight: bold; -fx-padding: 10 30 10 30;" styleClass="btn, btn-info, btn-lg" text="PLAY AGAIN" visible="false" />
 
 </VBox>

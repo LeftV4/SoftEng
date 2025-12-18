@@ -14,7 +14,7 @@ public class Question {
         this.choices = choices;
     }
 
-    //Getters (How to access the data)
+    //Getters
     public String getExpression() { return expression; }
     public int getCorrectAnswer() { return correctAnswer; }
     public List<Integer> getChoices() { return choices; }
