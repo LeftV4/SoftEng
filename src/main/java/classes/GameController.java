@@ -10,6 +10,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameController {
 
     @FXML private Label scoreLabel;
@@ -27,6 +30,7 @@ public class GameController {
     private Timeline timeline;
     private static final int TIME_LIMIT = 10;
 
+    private List<QuestionHistory> history = new ArrayList<>();
 
     public void initialize() {
         engine = new MathEngine();
@@ -45,24 +49,27 @@ public class GameController {
     }
 
     private void restartGame() {
-            // 1. Reset Game State
-            score = 0;
-            difficulty = 1;
+        // 1. Reset Game State
+        score = 0;
+        difficulty = 1;
+        history.clear();
 
-            // 2. Reset UI
-            questionLabel.setText("Get Ready...");
-            restartBtn.setVisible(false);
-            restartBtn.setManaged(false); // Hide it again
+        // 2. Reset UI
+        questionLabel.setText("Get Ready...");
+        questionLabel.setStyle("-fx-font-size: 48px;"); // Reset font size
+        questionBox.getChildren().removeIf(node -> node instanceof Label && node != questionLabel);
+        restartBtn.setVisible(false);
+        restartBtn.setManaged(false); // Hide it again
 
-            // 3. Re-enable Buttons
-            btn1.setDisable(false);
-            btn2.setDisable(false);
-            btn3.setDisable(false);
-            btn4.setDisable(false);
+        // 3. Re-enable Buttons
+        btn1.setDisable(false);
+        btn2.setDisable(false);
+        btn3.setDisable(false);
+        btn4.setDisable(false);
 
-            // 4. Start fresh!
-            loadNextQuestion();
-        }
+        // 4. Start fresh!
+        loadNextQuestion();
+    }
 
     private void startTimer() {
         timerLabel.setText(String.valueOf(TIME_LIMIT));
@@ -120,6 +127,9 @@ public class GameController {
 
     private void checkAnswer(int buttonIndex) {
         int selectedValue = currentQuestion.getChoices().get(buttonIndex);
+        boolean isCorrect = (selectedValue == currentQuestion.getCorrectAnswer());
+
+        history.add(new QuestionHistory(currentQuestion,selectedValue, isCorrect));
 
         if (selectedValue == currentQuestion.getCorrectAnswer()) {
             score++;
@@ -133,9 +143,27 @@ public class GameController {
         }
     }
     private void handleGameOver() {
-        questionLabel.setText("GAME OVER! Score: " + score);
+        questionLabel.setText("RESULTS SUMMARY");
+        questionLabel.setStyle("-fx-font-size: 32px; -fx-font-weight: bold;");
+
+        Label finalScoreLabel = new Label("Final Score: " + score);
+        finalScoreLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 0 0 20 0;");
+        questionBox.getChildren().add(finalScoreLabel);
 
         if (timeline != null) timeline.stop();
+
+        // Show History
+        for (QuestionHistory entry : history) {
+            String resultText = entry.isCorrect
+                    ? String.format("%s = %d ✓", entry.question.getExpression(), entry.selectedAnswer)
+                    : String.format("%s = %d (Correct: %d) ✗", entry.question.getExpression(), entry.selectedAnswer, entry.question.getCorrectAnswer());
+
+            Label historyLabel = new Label(resultText);
+            historyLabel.setTextFill(entry.isCorrect ? Color.GREEN : Color.RED);
+            historyLabel.setStyle("-fx-font-size: 20px; -fx-padding: 5;");
+            questionBox.getChildren().add(historyLabel);
+        }
+
 
         // Disable buttons
         btn1.setDisable(true);
@@ -147,5 +175,4 @@ public class GameController {
         restartBtn.setManaged(true);
     }
 }
-
 
