@@ -35,4 +35,9 @@ public class MainMenuController extends Application {
         new SceneSwitch(rootPane, "/GameScene.fxml");
     }
 
+    @FXML
+    public void LeaderBoard() throws IOException {
+        new SceneSwitch(rootPane, "/LeaderBoard.fxml");
+    }
+
 }

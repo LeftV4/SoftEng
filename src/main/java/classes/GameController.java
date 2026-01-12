@@ -5,6 +5,8 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -12,6 +14,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GameController {
 
@@ -58,6 +61,7 @@ public class GameController {
         questionLabel.setText("Get Ready...");
         questionLabel.setStyle("-fx-font-size: 48px;"); // Reset font size
         questionBox.getChildren().removeIf(node -> node instanceof Label && node != questionLabel);
+        questionBox.getChildren().add(questionLabel);
         restartBtn.setVisible(false);
         restartBtn.setManaged(false); // Hide it again
 
@@ -171,6 +175,55 @@ public class GameController {
         btn3.setDisable(true);
         btn4.setDisable(true);
 
+        restartBtn.setVisible(true);
+        restartBtn.setManaged(true);
+
+        askForNameAndSave();
+    }
+
+    private void askForNameAndSave() {
+        Label promptLabel = new Label("Save your score! Enter your name:");
+        promptLabel.setStyle("-fx-font-size: 18px; -fx-padding: 10 0 5 0;");
+
+        TextField nameField = new TextField("Player");
+        nameField.setMaxWidth(200);
+
+        Button saveBtn = new Button("Save Score");
+        saveBtn.getStyleClass().addAll("btn", "btn-success");
+
+        saveBtn.setOnAction(e -> {
+            String name = nameField.getText().isEmpty() ? "Player" : nameField.getText();
+            LeaderBoardManager.saveScore(name, score);
+            displayLeaderboard();
+        });
+
+        questionBox.getChildren().addAll(promptLabel, nameField, saveBtn);
+    }
+
+    private void displayLeaderboard() {
+        // Clear the history/summary UI to make room for the Leaderboard
+        questionBox.getChildren().clear();
+
+        Label titleLabel = new Label("🏆 LEADERBOARD 🏆");
+        titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #FFD700; -fx-padding: 10;");
+        questionBox.getChildren().add(titleLabel);
+
+        List<String> topScores = LeaderBoardManager.getSortedScores();
+
+        if (topScores.isEmpty()) {
+            questionBox.getChildren().add(new Label("No scores yet!"));
+        } else {
+            for (int i = 0; i < topScores.size(); i++) {
+                Label scoreEntry = new Label((i + 1) + ". " + topScores.get(i));
+                scoreEntry.setStyle("-fx-font-size: 22px; -fx-padding: 2;");
+                questionBox.getChildren().add(scoreEntry);
+            }
+        }
+
+        // Ensure the restart button is at the bottom and visible
+        if (!questionBox.getChildren().contains(restartBtn)) {
+            questionBox.getChildren().add(restartBtn);
+        }
         restartBtn.setVisible(true);
         restartBtn.setManaged(true);
     }

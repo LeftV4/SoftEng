@@ -20,6 +20,7 @@ module org.example.softeng {
 
     //Game Engine
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     //Permissions
     opens classes to javafx.fxml;
