@@ -8,7 +8,7 @@ public class LeaderBoardManager {
     // Replace placeholders with your actual PostgreSQL credentials
     private static final String DB_URL = "jdbc:postgresql://dblabs.iee.ihu.gr:5432/alexkara5";
     private static final String USER = "alexkara5";
-    private static final String PASS = "5544aleX$";
+    private static final String PASS = "smth2025";
 
     static {
         // Initialize table in Postgres
