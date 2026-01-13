@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
    <children>
       <Label alignment="CENTER" layoutX="218.0" layoutY="39.0" prefHeight="17.0" prefWidth="165.0" text="Math Quiz" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="268.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#PlayGame" prefHeight="25.0" prefWidth="65.0" text="Play" />
-      <Button layoutX="253.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#LeaderBoard" prefHeight="25.0" prefWidth="95.0" text="Leaderboard" />
+      <Button layoutX="268.0" layoutY="188.0" mnemonicParsing="false" onAction="#PlayGame" prefHeight="25.0" prefWidth="65.0" text="Play" />
+      <Button layoutX="253.0" layoutY="254.0" mnemonicParsing="false" onAction="#LeaderBoard" prefHeight="25.0" prefWidth="95.0" text="Leaderboard" />
    </children>
 </AnchorPane>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="604.0" fitWidth="817.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Lineargradient2-660x322.png" />
+         </image>
+         <effect>
+            <GaussianBlur />
+         </effect>
+      </ImageView>
+      <Text fill="WHITE" layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Math quiz" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri Bold" size="32.0" />
+         </font>
+         <effect>
+            <DropShadow height="5.0" offsetX="1.0" offsetY="1.0" radius="2.0" width="5.0">
+               <color>
+                  <Color red="0.4736842215061188" green="0.4736842215061188" blue="0.4736842215061188" opacity="0.8299999833106995" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Text>
+      <Pane layoutX="233.0" layoutY="168.0" prefHeight="290.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30; -fx-opacity: 0.8;">
+         <children>
+            <Text layoutX="100.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome " textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="30.0" />
+               </font>
+            </Text>
+            <Text fill="#515151" layoutX="71.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="please enter your name" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </Text>
+            <TextArea layoutX="73.0" layoutY="108.0" prefHeight="30.0" prefWidth="197.0" promptText="username" style="-fx-background-color: WHITE;">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow height="5.0" offsetX="1.0" offsetY="1.0" radius="2.0" width="5.0">
+                     <color>
+                        <Color opacity="0.8328267931938171" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </TextArea>
+            <ColorPicker fx:id="ColorPickerId" layoutX="8.0" layoutY="114.0" prefHeight="30.0" prefWidth="47.0" style="-fx-background-radius: 100; -fx-background-color: white;">
+               <value>
+                  <Color red="0.45098039507865906" green="0.7882353067398071" blue="1.0" />
+               </value>
+               <effect>
+                  <DropShadow height="5.0" offsetX="1.0" offsetY="1.0" radius="2.0" width="5.0">
+                     <color>
+                        <Color opacity="0.8328267931938171" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ColorPicker>
+            <Pane fx:id="PaneAsStartButton" layoutX="80.0" layoutY="192.0" prefHeight="45.0" prefWidth="179.0" style="-fx-background-color: #73c9ff; -fx-background-radius: 10;">
+               <children>
+                  <Text disable="true" fill="WHITE" layoutX="50.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="START" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri Bold" size="30.0" />
+                     </font>
+                  </Text>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Reflection fraction="0.41" topOpacity="0.47" />
+               </effect>
+            </Pane>
+            <Rectangle fx:id="circleHighlight" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="32.0" layoutX="5.0" layoutY="114.0" strokeType="INSIDE" strokeWidth="2.5" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="53.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006729475100942127">
+                           <color>
+                              <Color red="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.20336145487969012">
+                           <color>
+                              <Color red="1.0" green="0.643401026725769" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.35127860026917895">
+                           <color>
+                              <Color red="0.7360406517982483" green="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.5041689918918031">
+                           <color>
+                              <Color red="0.18333333730697632" green="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.6357121754259264">
+                           <color>
+                              <Color green="1.0" blue="0.9581218361854553" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.7119784656796765">
+                           <color>
+                              <Color green="0.4166666567325592" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.8250336473755047">
+                           <color>
+                              <Color red="1.0" blue="0.7576140761375427" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" blue="0.7576140761375427" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+         </children>
+      </Pane>
+      <ImageView disable="true" fitHeight="45.0" fitWidth="47.0" layoutX="753.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../delete.png" />
+         </image>
+         <effect>
+            <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <Button fx:id="cancelButton" layoutX="752.0" layoutY="13.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="45.0" prefWidth="47.0" style="-fx-opacity: 0;" text="Button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</Pane>

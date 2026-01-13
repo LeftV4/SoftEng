@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -14,7 +13,6 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class GameController {
 
@@ -25,6 +23,7 @@ public class GameController {
     @FXML private Button restartBtn;
     @FXML private Label questionLabel;
     @FXML private Button btn1, btn2, btn3, btn4;
+
 
     private MathEngine engine;
     private Question currentQuestion;

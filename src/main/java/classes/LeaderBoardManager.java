@@ -12,7 +12,7 @@ public class LeaderBoardManager {
 
     static {
         // Initialize table in Postgres
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS leaderboard (" +
                     "name VARCHAR(255) PRIMARY KEY, " +
@@ -23,6 +23,10 @@ public class LeaderBoardManager {
         }
     }
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL, USER, PASS);
+    }
+
     public static void saveScore(String name, int newScore) {
         // PostgreSQL "UPSERT" syntax (Insert or Update on Conflict)
         // Only updates the score if the new score (EXCLUDED.score) is higher than the existing one
@@ -31,7 +35,7 @@ public class LeaderBoardManager {
                 "SET score = EXCLUDED.score " +
                 "WHERE EXCLUDED.score > leaderboard.score";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(upsertSQL)) {
 
             pstmt.setString(1, name);
@@ -47,7 +51,7 @@ public class LeaderBoardManager {
         List<String> scores = new ArrayList<>();
         String query = "SELECT name, score FROM leaderboard ORDER BY score DESC";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 

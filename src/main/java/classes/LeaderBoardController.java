@@ -11,8 +11,8 @@ import java.util.List;
 
 public class LeaderBoardController {
 
-    @FXML VBox leaderboardBox;
-    @FXML AnchorPane rootPane;
+    @FXML private VBox leaderboardBox;
+    @FXML private AnchorPane rootPane;
 
     @FXML
     public void initialize() {
@@ -41,10 +41,18 @@ public class LeaderBoardController {
                 Label scoreEntry = new Label((i + 1) + ". " + topScores.get(i));
 
                 // Styling to match the "GameController" look
-                scoreEntry.setStyle("-fx-font-size: 24px; -fx-padding: 8; -fx-text-fill: #333;");
+                String baseStyle = "-fx-font-size: 24px; -fx-padding: 8; -fx-text-fill: #333;";
 
                 // Highlight the top 3 players
-                if (i == 0) scoreEntry.setStyle(scoreEntry.getStyle() + "-fx-font-weight: bold; -fx-text-fill: #DAA520;"); // Gold
+                if (i == 0) {
+                    scoreEntry.setStyle(baseStyle + "-fx-font-weight: bold; -fx-text-fill: #DAA520;"); // Gold
+                } else if (i == 1) {
+                    scoreEntry.setStyle(baseStyle + "-fx-font-weight: bold; -fx-text-fill: #C0C0C0;"); // Silver
+                } else if (i == 2) {
+                    scoreEntry.setStyle(baseStyle + "-fx-font-weight: bold; -fx-text-fill: #CD7F32;"); // Bronze
+                } else {
+                    scoreEntry.setStyle(baseStyle);
+                }
 
                 leaderboardBox.getChildren().add(scoreEntry);
             }
@@ -52,7 +60,7 @@ public class LeaderBoardController {
     }
 
     @FXML
-    public void ExitLeaderboard() throws IOException {
+    public void exitLeaderboard() throws IOException {
         new SceneSwitch(rootPane, "/MainMenu.fxml");
     }
 
