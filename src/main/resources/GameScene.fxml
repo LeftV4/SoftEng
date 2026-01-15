@@ -30,12 +30,12 @@
                 </Group>
                 <Label fx:id="timerLabel" style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #333;" text="10" />
             </StackPane>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane prefHeight="200.0" prefWidth="760.0">
                 <content>
-                    <VBox fx:id="questionBox" alignment="CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-font-size: 48;">
-                        <children>
-                            <Label fx:id="questionLabel" text="Ready?" />
-                        </children>
+                    <VBox fx:id="questionBox" alignment="CENTER" prefHeight="113.0" prefWidth="744.0" style="-fx-font-size: 48;">
+                  <children>
+                            <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" pickOnBounds="false" prefHeight="70.0" prefWidth="648.0" text="Ready?" />
+                  </children>
                     </VBox>
                 </content>
             </ScrollPane>

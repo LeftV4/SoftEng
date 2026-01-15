@@ -197,6 +197,8 @@ public class GameController {
         });
 
         questionBox.getChildren().addAll(promptLabel, nameField, saveBtn);
+        restartBtn.setDisable(true);
+        questionBox.getChildren().remove(restartBtn);
     }
 
     private void displayLeaderboard() {
@@ -223,6 +225,7 @@ public class GameController {
         if (!questionBox.getChildren().contains(restartBtn)) {
             questionBox.getChildren().add(restartBtn);
         }
+        restartBtn.setDisable(false);
         restartBtn.setVisible(true);
         restartBtn.setManaged(true);
     }
