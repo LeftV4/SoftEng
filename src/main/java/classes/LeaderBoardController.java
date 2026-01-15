@@ -1,62 +1,126 @@
 package classes;
 
-
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.concurrent.Task;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.ColumnConstraints;
 
 import java.io.IOException;
 import java.util.List;
 
 public class LeaderBoardController {
 
-    @FXML private VBox leaderboardBox;
     @FXML private AnchorPane rootPane;
+    @FXML private VBox leaderboardBox;
+    @FXML private StackPane loadingLayer;
+    @FXML private ImageView loadingSpinner;
 
     @FXML
     public void initialize() {
-        loadLeaderboardData();
-    }
-
-    private void loadLeaderboardData() {
-        // Clear any placeholder content
+        // 1. Show the loading screen immediately
+        loadingLayer.setVisible(true);
         leaderboardBox.getChildren().clear();
 
-        // 1. Create and style the title (similar to GameController)
-        Label titleLabel = new Label("🏆 LEADERBOARD 🏆");
-        titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #FFD700; -fx-padding: 20;");
-        leaderboardBox.getChildren().add(titleLabel);
+        // Start rotation animation for the sand clock
+        RotateTransition rotate = new RotateTransition(Duration.seconds(2), loadingSpinner);
+        rotate.setByAngle(360);
+        rotate.setCycleCount(Animation.INDEFINITE);
+        rotate.setInterpolator(Interpolator.LINEAR);
+        rotate.play();
 
-        // 2. Fetch scores from Postgres via the Manager
-        List<String> topScores = LeaderBoardManager.getSortedScores();
+        // 2. Create a background task to fetch scores
+        Task<List<String>> fetchTask = new Task<>() {
+            @Override
+            protected List<String> call() throws Exception {
+                return LeaderBoardManager.getSortedScores();
+            }
+        };
 
-        // 3. Populate the VBox
-        if (topScores.isEmpty()) {
-            Label noScores = new Label("No scores recorded yet. Be the first!");
-            noScores.setStyle("-fx-font-size: 18px; -fx-text-fill: #666;");
-            leaderboardBox.getChildren().add(noScores);
-        } else {
-            for (int i = 0; i < topScores.size(); i++) {
-                Label scoreEntry = new Label((i + 1) + ". " + topScores.get(i));
+        // 3. Update UI when the task finishes successfully
+        fetchTask.setOnSucceeded(event -> {
+            loadingLayer.setVisible(false);
+            List<String> scores = fetchTask.getValue();
 
-                // Styling to match the "GameController" look
-                String baseStyle = "-fx-font-size: 24px; -fx-padding: 8; -fx-text-fill: #333;";
+            // Create a GridPane for the table layout
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(20);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20));
+            grid.getStyleClass().add("leaderboard-grid");
 
-                // Highlight the top 3 players
+            // Define Columns: Rank (15%), Name (60%), Score (25%)
+            ColumnConstraints col1 = new ColumnConstraints(); col1.setPercentWidth(15); col1.setHalignment(HPos.CENTER);
+            ColumnConstraints col2 = new ColumnConstraints(); col2.setPercentWidth(60);
+            ColumnConstraints col3 = new ColumnConstraints(); col3.setPercentWidth(25); col3.setHalignment(HPos.RIGHT);
+            grid.getColumnConstraints().addAll(col1, col2, col3);
+
+            // Add Headers
+            Label rankHeader = new Label("RANK"); rankHeader.getStyleClass().add("leaderboard-header");
+            Label nameHeader = new Label("PLAYER"); nameHeader.getStyleClass().add("leaderboard-header");
+            Label scoreHeader = new Label("SCORE"); scoreHeader.getStyleClass().add("leaderboard-header");
+            grid.add(rankHeader, 0, 0);
+            grid.add(nameHeader, 1, 0);
+            grid.add(scoreHeader, 2, 0);
+
+            for (int i = 0; i < scores.size(); i++) {
+                String rawData = scores.get(i);
+                // Parse "Name:Score"
+                String[] parts = rawData.split(":");
+                String name = parts[0];
+                String score = parts.length > 1 ? parts[1] : "0";
+
+                Label rankLbl = new Label(String.valueOf(i + 1));
+                Label nameLbl = new Label(name);
+                Label scoreLbl = new Label(score);
+                
+                // Apply colors based on rank
+                String style = "-fx-font-family: 'Segoe UI Black'; -fx-font-size: 18px; ";
                 if (i == 0) {
-                    scoreEntry.setStyle(baseStyle + "-fx-font-weight: bold; -fx-text-fill: #DAA520;"); // Gold
+                    style += "-fx-text-fill: #FFD700; -fx-effect: dropshadow(one-pass-box, rgba(255,215,0,0.8), 10, 0, 0, 0);"; // Gold + Glow
                 } else if (i == 1) {
-                    scoreEntry.setStyle(baseStyle + "-fx-font-weight: bold; -fx-text-fill: #C0C0C0;"); // Silver
+                    style += "-fx-text-fill: #C0C0C0; -fx-effect: dropshadow(one-pass-box, rgba(192,192,192,0.8), 10, 0, 0, 0);"; // Silver + Glow
                 } else if (i == 2) {
-                    scoreEntry.setStyle(baseStyle + "-fx-font-weight: bold; -fx-text-fill: #CD7F32;"); // Bronze
+                    style += "-fx-text-fill: #CD7F32; -fx-effect: dropshadow(one-pass-box, rgba(205,127,50,0.8), 10, 0, 0, 0);"; // Bronze + Glow
                 } else {
-                    scoreEntry.setStyle(baseStyle);
+                    style += "-fx-text-fill: white;";
                 }
 
-                leaderboardBox.getChildren().add(scoreEntry);
+                rankLbl.setStyle(style);
+                nameLbl.setStyle(style);
+                scoreLbl.setStyle(style);
+
+                // Add to grid (row i+1 because of header)
+                grid.add(rankLbl, 0, i + 1);
+                grid.add(nameLbl, 1, i + 1);
+                grid.add(scoreLbl, 2, i + 1);
             }
-        }
+            
+            leaderboardBox.getChildren().add(grid);
+        });
+
+        // 4. Handle connection errors
+        fetchTask.setOnFailed(event -> {
+            loadingLayer.setVisible(false);
+            Label errorLabel = new Label("Could not load scores.");
+            errorLabel.setStyle("-fx-text-fill: #ff5f6d; -fx-font-family: 'Segoe UI Black'; -fx-font-size: 18px;");
+            leaderboardBox.getChildren().add(errorLabel);
+        });
+
+        // 5. Start the background thread
+        new Thread(fetchTask).start();
     }
 
     @FXML
@@ -64,5 +128,4 @@ public class LeaderBoardController {
         SoundManager.play(SoundManager.Sound.CLICK);
         new SceneSwitch(rootPane, "/MainMenu.fxml");
     }
-
 }

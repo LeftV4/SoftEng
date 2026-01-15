@@ -187,3 +187,56 @@
     -fx-text-fill: derive(-fx-game-border, 50%);
     -fx-opacity: 0.6;
 }
+
+/* LOADING SCREEN */
+.loading-box {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-padding: 30;
+    -fx-max-width: 250;
+    -fx-max-height: 150;
+}
+
+.root.dark-mode .loading-box {
+    -fx-background-color: rgba(0, 21, 41, 0.9);
+    -fx-border-color: -fx-game-secondary;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+}
+
+.loading-text {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-game-primary;
+}
+
+.root.dark-mode .loading-text {
+    -fx-text-fill: white;
+}
+
+.progress-indicator {
+    -fx-progress-color: -fx-game-secondary;
+}
+
+/* LEADERBOARD TABLE */
+.leaderboard-grid {
+    -fx-background-color: rgba(0, 0, 0, 0.6); /* Darker background for readability */
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+
+.leaderboard-header {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 16px;
+    -fx-text-fill: #888888; /* Muted color for headers */
+    -fx-alignment: CENTER;
+    -fx-padding: 0 0 10 0; /* Space below header */
+}
+
+.leaderboard-title {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 30px;
+    -fx-text-fill: #FFD700; /* Gold */
+    -fx-effect: dropshadow(one-pass-box, rgba(255,215,0,0.8), 10, 0, 0, 0);
+}

@@ -40,7 +40,7 @@ public class MainMenuController extends Application {
     @FXML
     public void LeaderBoard() throws IOException {
         SoundManager.play(SoundManager.Sound.CLICK);
-        new SceneSwitch(rootPane, "/LeaderBoard.fxml");
+        new SceneSwitch(rootPane, "/Leaderboard.fxml");
     }
 
 }

@@ -11,10 +11,10 @@ public class SoundManager {
     // Sounds go here
     public enum Sound {
         CLICK("/sfx/button_sfx.wav");
-        // Future examples:
-        // CORRECT("/sfx/correct.mp3");
-        // WRONG("/sfx/wrong.mp3");
-        // or sum shi
+        /* Future examples:
+        CORRECT("/sfx/correct.mp3");
+        WRONG("/sfx/wrong.mp3");
+        or sum shi */
 
         private final String path;
 
@@ -64,6 +64,7 @@ public class SoundManager {
                clip.play(1.0);
            }
        } catch (Exception e) {
+           e.printStackTrace();
            // Handle potential NPE from ConcurrentHashMap if getClip returned null
        }
     }
