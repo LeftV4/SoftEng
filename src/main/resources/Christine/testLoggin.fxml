@@ -18,14 +18,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="604.0" fitWidth="817.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Lineargradient2-660x322.png" />
+            <Image url="@/img/Lineargradient2-660x322.png" />
          </image>
          <effect>
-            <GaussianBlur />
+            <GaussianBlur/>
          </effect>
       </ImageView>
       <Text fill="WHITE" layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Math quiz" textAlignment="CENTER">
@@ -151,7 +151,7 @@
       </Pane>
       <ImageView disable="true" fitHeight="45.0" fitWidth="47.0" layoutX="753.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../delete.png" />
+            <Image url="@/img/delete.png" />
          </image>
          <effect>
             <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0">
@@ -161,7 +161,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <Button fx:id="cancelButton" layoutX="752.0" layoutY="13.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="45.0" prefWidth="47.0" style="-fx-opacity: 0;" text="Button">
+      <Button fx:id="cancelButton" layoutX="752.0" layoutY="13.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="47.0" style="-fx-opacity: 0;" text="Button">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

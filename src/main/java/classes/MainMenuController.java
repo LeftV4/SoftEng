@@ -26,17 +26,20 @@ public class MainMenuController extends Application {
         primaryStage.setTitle("Math Quiz!");
         primaryStage.setResizable(false);
         primaryStage.show();
+        SoundManager.preloadSounds();
     }
 
 
 
     @FXML
     public void PlayGame() throws IOException {
+        SoundManager.play(SoundManager.Sound.CLICK);
         new SceneSwitch(rootPane, "/GameScene.fxml");
     }
 
     @FXML
     public void LeaderBoard() throws IOException {
+        SoundManager.play(SoundManager.Sound.CLICK);
         new SceneSwitch(rootPane, "/LeaderBoard.fxml");
     }
 

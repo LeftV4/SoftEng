@@ -61,6 +61,7 @@ public class LeaderBoardController {
 
     @FXML
     public void exitLeaderboard() throws IOException {
+        SoundManager.play(SoundManager.Sound.CLICK);
         new SceneSwitch(rootPane, "/MainMenu.fxml");
     }
 

@@ -2,6 +2,7 @@ module org.example.softeng {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.media;
 
     // UI Libraries
     requires org.controlsfx.controls;

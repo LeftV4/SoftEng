@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
    <children>
-      <Label alignment="CENTER" layoutX="218.0" layoutY="39.0" prefHeight="17.0" prefWidth="165.0" text="Math Quiz" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Button layoutX="268.0" layoutY="188.0" mnemonicParsing="false" onAction="#PlayGame" prefHeight="25.0" prefWidth="65.0" text="Play" />
-      <Button layoutX="253.0" layoutY="254.0" mnemonicParsing="false" onAction="#LeaderBoard" prefHeight="25.0" prefWidth="95.0" text="Leaderboard" />
+      <!-- Background Decorations (Floating Symbols) -->
+      <Label rotate="-20.0" styleClass="math-symbol" text="+" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      <Label rotate="15.0" styleClass="math-symbol" text="×" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
+      <Label rotate="10.0" styleClass="math-symbol" text="÷" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
+      <Label rotate="-15.0" styleClass="math-symbol" text="-" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="40.0" />
+
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="35.0" styleClass="menu-box" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <StackPane styleClass="title-banner">
+               <children>
+                  <VBox alignment="CENTER" spacing="-5.0">
+                     <children>
+                        <Label styleClass="title-text" text="MATH QUIZ" />
+                        <Label styleClass="subtitle-text" text="CHALLENGE YOUR BRAIN" />
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+            <Button mnemonicParsing="false" onAction="#PlayGame" prefHeight="56.0" prefWidth="92.0" styleClass="game-button" text="Play" />
+            <Button mnemonicParsing="false" onAction="#LeaderBoard" prefHeight="56.0" prefWidth="155.0" styleClass="game-button" text="Leaderboard" />
+         </children>
+      </VBox>
+      <Label styleClass="footer-text" text="v1.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
