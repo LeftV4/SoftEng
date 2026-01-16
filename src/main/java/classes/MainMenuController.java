@@ -36,6 +36,7 @@ public class MainMenuController extends Application {
 
     @FXML
     public void initialize() {
+        SoundManager.playLoop(SoundManager.Sound.MENU,0.50);
         ThemeManager.applyTheme(rootPane);
         animateBackground();
         animateTitle();
@@ -69,7 +70,6 @@ public class MainMenuController extends Application {
     @FXML
     public void PlayGame() {
         modeSelectionPopup.setVisible(true);
-        SoundManager.play(SoundManager.Sound.CLICK);
     }
 
     @FXML
@@ -80,12 +80,14 @@ public class MainMenuController extends Application {
     @FXML
     public void startStandard() throws IOException {
         gameMode = "STANDARD";
+        SoundManager.stopAllLoops();
         new SceneSwitch(rootPane, "/GameScene.fxml");
     }
 
     @FXML
     public void startBinary() throws IOException {
         gameMode = "BINARY";
+        SoundManager.stopAllLoops();
         new SceneSwitch(rootPane, "/GameScene.fxml");
     }
 

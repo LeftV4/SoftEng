@@ -71,6 +71,11 @@ public class GameController {
         ThemeManager.applyTheme(gameRoot);
         animateBackground();
 
+        //Init synchronized bg tracks
+        SoundManager.playLoop(SoundManager.Sound.BASIC, 0.5);
+        SoundManager.playLoop(SoundManager.Sound.INTERMEDIATE, 0.0);
+        SoundManager.playLoop(SoundManager.Sound.ADVANCED, 0.0);
+
         // This runs when the screen starts
         questionLabel.setText("Press a button to start!");
         updateLivesUI();
@@ -90,10 +95,10 @@ public class GameController {
         updateMuteButton();
 
         // Trigger sound on MousePressed for instant feedback
-        btn1.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
-        btn2.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
-        btn3.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
-        btn4.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
+        //btn1.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
+        //btn2.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
+        //btn3.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
+        //btn4.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
         restartBtn.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
         mainMenuBtn.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
         pauseBtn.setOnMousePressed(e -> SoundManager.play(SoundManager.Sound.CLICK));
@@ -117,6 +122,10 @@ public class GameController {
 
     private void restartGame() {
         // 1. Reset Game State
+        SoundManager.stopAllLoops();
+        SoundManager.playLoop(SoundManager.Sound.BASIC,0.5);
+        SoundManager.playLoop(SoundManager.Sound.INTERMEDIATE,0.0);
+        SoundManager.playLoop(SoundManager.Sound.ADVANCED,0.0);
         score = 0;
         difficulty = 1;
         history.clear();
@@ -182,7 +191,6 @@ public class GameController {
         isGameActive = false;
         if (timeline != null) timeline.pause();
         pauseStartTimestamp = System.currentTimeMillis();
-
         pauseBtn.setText("▶");
         questionLabel.setText("PAUSED");
         answerGrid.setDisable(true);
@@ -285,6 +293,17 @@ public class GameController {
             if (score % 3 == 0) {
                 difficulty += 3;
                 showLevelUpEffect();
+
+                //Music Crossfade Logic
+                if(difficulty==7){
+                    //Transition from BASIC to INTERMEDIATE
+                    SoundManager.fadeToVolume(SoundManager.Sound.BASIC, 0.0, 2.0);
+                    SoundManager.fadeToVolume(SoundManager.Sound.INTERMEDIATE, 0.5, 2.0);
+                }else if(difficulty==13){
+                    //Transition from INTERMEDIATE to ADVANCED
+                    SoundManager.fadeToVolume(SoundManager.Sound.INTERMEDIATE, 0.0, 2.0);
+                    SoundManager.fadeToVolume(SoundManager.Sound.ADVANCED, 0.5, 2.0);
+                }
             }
 
             loadNextQuestion();
@@ -314,7 +333,10 @@ public class GameController {
     }
     private void handleGameOver() {
         isGameActive = false;
-        SoundManager.play(SoundManager.Sound.GAMEOVER);
+        SoundManager.fadeToVolume(SoundManager.Sound.BASIC, 0.0, 1.0);
+        SoundManager.fadeToVolume(SoundManager.Sound.INTERMEDIATE, 0.0, 1.0);
+        SoundManager.fadeToVolume(SoundManager.Sound.ADVANCED, 0.0, 1.0);
+        SoundManager.playLoop(SoundManager.Sound.GAMEOVER,0.5);
 
         // 1. Kill Game Elements
         timerPane.setVisible(false);
@@ -444,6 +466,7 @@ public class GameController {
     private void returnToMenu() {
         cleanup();
         try {
+            SoundManager.stopAllLoops();
             new SceneSwitch(gameRoot, "/MainMenu.fxml");
         } catch (IOException e) {
             e.printStackTrace();
