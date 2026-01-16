@@ -2,19 +2,16 @@ package classes;
 
 import javafx.scene.media.AudioClip;
 import java.net.URL;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 import java.util.Map;
-
 
 public class SoundManager {
 
-    // Sounds go here
     public enum Sound {
-        CLICK("/sfx/button_sfx.wav");
-        /* Future examples:
-        CORRECT("/sfx/correct.mp3");
-        WRONG("/sfx/wrong.mp3");
-        or sum shi */
+        CLICK("/sfx/button_sfx.wav"),
+        CORRECT("/sfx/correct.wav"),   // Add this file to resources
+        WRONG("/sfx/wrong.wav"),       // Add this file to resources
+        GAMEOVER("/sfx/gameover.wav"); // Add this file to resources
 
         private final String path;
 
@@ -23,49 +20,50 @@ public class SoundManager {
         }
     }
 
-    // Prevents lag from loading sounds
-    private static final Map<Sound, AudioClip> soundCache = new ConcurrentHashMap<>();
+    // Cache a single AudioClip instance per sound.
+    // AudioClip internally handles overlapping playback (mixing).
+    private static final Map<Sound, AudioClip> soundCache = new HashMap<>();
 
+    private static boolean isMuted = false;
+
+    public static void toggleMute() {
+        isMuted = !isMuted;
+    }
+
+    public static boolean isMuted() {
+        return isMuted;
+    }
 
     public static void preloadSounds() {
-        Thread loader = new Thread( () -> {
-           for (Sound sound : Sound.values()) {
-               getClip(sound);
-           }
-        });
-        loader.setDaemon(true);
-        loader.start();
+        for (Sound sound : Sound.values()) {
+            getOrLoadClip(sound);
+        }
     }
 
-    private static AudioClip getClip(Sound sound){
-        return soundCache.computeIfAbsent(sound, s -> {
-            try {
-                URL resource = SoundManager.class.getResource(s.path);
-                if (resource != null) {
-                    return new AudioClip(resource.toExternalForm());
-                } else {
-                    System.err.println("Sound file missing: " + s.path);
-                    return null; // This will cause computeIfAbsent to throw NPE if not handled, but see below
-                }
-            } catch (Exception e) {
-                System.err.println("Error loading sound " + s.name() + ": " + e.getMessage());
-            }
-            return null;
-
-        });
-    }
-
-    //Plays the specified sound
     public static void play(Sound sound) {
-       // Check if clip exists before playing to avoid NPEs from getClip failures
-       try {
-           AudioClip clip = getClip(sound);
-           if (clip != null){
-               clip.play(1.0);
-           }
-       } catch (Exception e) {
-           e.printStackTrace();
-           // Handle potential NPE from ConcurrentHashMap if getClip returned null
-       }
+        if (isMuted) return;
+        AudioClip clip = getOrLoadClip(sound);
+        if (clip != null) {
+            clip.play();
+        }
+    }
+
+    private static AudioClip getOrLoadClip(Sound sound) {
+        if (soundCache.containsKey(sound)) {
+            return soundCache.get(sound);
+        }
+        try {
+            URL resource = SoundManager.class.getResource(sound.path);
+            if (resource != null) {
+                AudioClip clip = new AudioClip(resource.toExternalForm());
+                soundCache.put(sound, clip);
+                return clip;
+            } else {
+                System.err.println("SoundManager: Warning - Sound file not found: " + sound.path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

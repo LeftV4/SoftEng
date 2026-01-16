@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
    <children>
       <!-- Background Decorations (Floating Symbols) -->
       <Label rotate="-20.0" styleClass="math-symbol" text="+" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
@@ -15,22 +15,25 @@
       <Label rotate="10.0" styleClass="math-symbol" text="÷" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
       <Label rotate="-15.0" styleClass="math-symbol" text="-" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="40.0" />
 
-      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="35.0" styleClass="menu-box" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="35.0" styleClass="menu-box" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
          <children>
             <StackPane styleClass="title-banner">
                <children>
                   <VBox alignment="CENTER" spacing="-5.0">
                      <children>
-                        <Label styleClass="title-text" text="MATH QUIZ" />
+                        <Label fx:id="titleLabel" styleClass="title-text" text="MATH QUIZ" />
                         <Label styleClass="subtitle-text" text="CHALLENGE YOUR BRAIN" />
                      </children>
                   </VBox>
                </children>
             </StackPane>
-            <Button mnemonicParsing="false" onAction="#PlayGame" prefHeight="56.0" prefWidth="92.0" styleClass="game-button" text="Play" />
-            <Button mnemonicParsing="false" onAction="#LeaderBoard" prefHeight="56.0" prefWidth="155.0" styleClass="game-button" text="Leaderboard" />
+            <Button fx:id="playBtn" mnemonicParsing="false" onAction="#PlayGame" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Play" />
+            <Button fx:id="leaderboardBtn" mnemonicParsing="false" onAction="#LeaderBoard" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Leaderboard" />
+            <Button fx:id="themeBtn" mnemonicParsing="false" onAction="#ChangeTheme" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Change Theme" />
+            <Button fx:id="quitBtn" mnemonicParsing="false" onAction="#Quit" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Quit" />
          </children>
       </VBox>
+      <Button fx:id="muteBtn" mnemonicParsing="false" style="-fx-font-size: 18px; -fx-padding: 10;" styleClass="game-button" text="🔊" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Label styleClass="footer-text" text="v1.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>

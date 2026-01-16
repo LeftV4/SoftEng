@@ -1,5 +1,17 @@
 
 /* BUTTON CLASS AND STYLES */
+.label {
+    -fx-text-fill: #333333;
+}
+
+.question-box {
+    -fx-background-color: rgba(0,0,0,0.15);
+}
+
+.root.dark-mode .question-box {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
 .root {
     /* Light Mode Palette (Default) */
     -fx-game-primary: #4facfe;      /* Bright Blue */
@@ -19,14 +31,14 @@
 
 .root.dark-mode {
     /* Dark Mode Palette (Deep Blue/Cyber vibe) */
-    -fx-game-primary: #001529;      /* Midnight Blue */
-    -fx-game-secondary: #00416A;    /* Deep Blue */
+    -fx-game-primary: #003366;      /* Midnight Blue (Lightened) */
+    -fx-game-secondary: #00509E;    /* Deep Blue (Lightened) */
     -fx-game-border: #4facfe;       /* Bright Blue border (matches light mode) */
     -fx-game-text: #ffffff;
     -fx-game-shadow: rgba(0, 0, 0, 0.8);
 
     /* Global Background (Dark Mode: Deep Radial Vignette) */
-    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, -fx-game-primary, #000000);
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, -fx-game-primary, #001020);
 }
 
 .game-button {
@@ -78,7 +90,7 @@
 .title-text {
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 48px;
-    -fx-fill: white;
+    -fx-text-fill: white;
     -fx-stroke: -fx-game-border;
     -fx-stroke-width: 2px;
 }
@@ -94,6 +106,10 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-effect: null;
+}
+
+.root.dark-mode .label {
+    -fx-text-fill: white;
 }
 
 /* --- NEW ADDITIONS FOR GAMEPLAY --- */
@@ -239,4 +255,46 @@
     -fx-font-size: 30px;
     -fx-text-fill: #FFD700; /* Gold */
     -fx-effect: dropshadow(one-pass-box, rgba(255,215,0,0.8), 10, 0, 0, 0);
+}
+
+.root.dark-mode .leaderboard-title {
+    -fx-text-fill: #FFD700;
+}
+
+/* COMBO TEXT */
+.combo-text {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 32px;
+    -fx-text-fill: #ff007f; /* Hot Pink */
+    -fx-effect: dropshadow(one-pass-box, white, 0, 0, 0, 0);
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
+}
+
+/* FLOATING SCORE POPUP */
+.floating-score {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 28px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(one-pass-box, black, 0, 2, 0, 0);
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+.floating-score.correct { -fx-text-fill: #2ecc71; }
+.floating-score.wrong   { -fx-text-fill: #e74c3c; }
+
+
+/* --- ANSWER BUTTON SPECIFIC STYLES --- */
+
+.btn-opt1 {
+    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
+}
+.btn-opt2 {
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+}
+.btn-opt3 {
+    -fx-background-color: linear-gradient(to bottom, #e67e22, #d35400);
+}
+.btn-opt4 {
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
 }

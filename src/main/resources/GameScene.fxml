@@ -5,8 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.GameController">
+<AnchorPane fx:id="gameRoot" prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.GameController">
     <children>
         <!-- Background Decorations -->
         <Label rotate="-20.0" styleClass="math-symbol" text="+" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
@@ -14,40 +15,57 @@
         <Label rotate="10.0" styleClass="math-symbol" text="÷" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
         <Label rotate="-15.0" styleClass="math-symbol" text="-" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="40.0" />
 
-        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox fx:id="rootBox" alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
 
-            <HBox alignment="CENTER_RIGHT" spacing="10">
-                <Label fx:id="scoreLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Score: 0" />
-            </HBox>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
+            <BorderPane prefWidth="200.0">
+               <left>
+                  <Label fx:id="livesLabel" style="-fx-font-size: 24px; -fx-text-fill: red;" text="❤️❤️❤️" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <HBox alignment="CENTER_RIGHT" spacing="15.0" BorderPane.alignment="CENTER">
+                     <Label fx:id="scoreLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Score: 0" />
+                     <Button fx:id="muteBtn" style="-fx-font-size: 18px; -fx-padding: 5 10;" styleClass="game-button" text="🔊" />
+                     <Button fx:id="pauseBtn" style="-fx-font-size: 18px; -fx-padding: 5 15;" styleClass="game-button" text="⏸" />
+                  </HBox>
+               </right>
+            </BorderPane>
+            
+            <StackPane fx:id="timerPane" prefHeight="150.0" prefWidth="200.0">
                 <Circle fill="TRANSPARENT" radius="80" stroke="e0e0e0" strokeWidth="15" />
                 <Group>
                     <Circle fill="TRANSPARENT" radius="110" stroke="TRANSPARENT" />
                     <Arc fx:id="timerArc" fill="TRANSPARENT" length="360" radiusX="80" radiusY="80" startAngle="90" stroke="#46178f" strokeLineCap="ROUND" strokeWidth="15" type="OPEN" />
                 </Group>
-                <Label fx:id="timerLabel" style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #333;" text="10" />
+                <Label fx:id="timerLabel" style="-fx-font-size: 40px; -fx-font-weight: bold;" text="10" />
+                <!-- Combo Label (Hidden by default) -->
+                <Label fx:id="comboLabel" managed="false" rotate="-5.0" styleClass="combo-text" text="COMBO x2!" translateX="180.0" visible="false" />
+                <!-- Level Up Label (Hidden by default) -->
+                <Label fx:id="levelLabel" managed="false" rotate="5.0" style="-fx-text-fill: #00f2fe; -fx-stroke: white; -fx-stroke-width: 1px;" styleClass="combo-text" text="LEVEL UP!" translateX="-180.0" visible="false" />
             </StackPane>
-            <ScrollPane prefHeight="200.0" prefWidth="760.0">
+            <ScrollPane fx:id="historyScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="150.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-background: transparent;">
                 <content>
-                    <VBox fx:id="questionBox" alignment="CENTER" prefHeight="113.0" prefWidth="744.0" style="-fx-font-size: 48;">
-                  <children>
-                            <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" pickOnBounds="false" prefHeight="70.0" prefWidth="648.0" text="Ready?" />
-                  </children>
+                    <VBox fx:id="questionBox" alignment="CENTER" spacing="10.0" style="-fx-font-size: 48px; -fx-font-weight: bold; -fx-background-radius: 20;" styleClass="question-box">
+                        <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </padding>
+                        <children>
+                            <Label fx:id="questionLabel" text="Ready?" textAlignment="CENTER" wrapText="true" />
+                        </children>
                     </VBox>
                 </content>
             </ScrollPane>
 
-            <GridPane alignment="CENTER" hgap="15" vgap="15">
-                <Button fx:id="btn1" prefHeight="100" prefWidth="250" styleClass="btn, btn-danger, btn-lg" text="Option A" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <GridPane fx:id="answerGrid" alignment="CENTER" hgap="15" vgap="15">
+                <Button fx:id="btn1" prefHeight="85" prefWidth="300" style="-fx-font-size: 24px;" styleClass="game-button, btn-opt1" text="Option A" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-                <Button fx:id="btn2" prefHeight="100" prefWidth="250" styleClass="btn, btn-primary, btn-lg" text="Option B" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button fx:id="btn2" prefHeight="85" prefWidth="300" style="-fx-font-size: 24px;" styleClass="game-button, btn-opt2" text="Option B" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Button fx:id="btn3" prefHeight="100" prefWidth="250" styleClass="btn, btn-warning, btn-lg" text="Option C" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button fx:id="btn3" prefHeight="85" prefWidth="300" style="-fx-font-size: 24px;" styleClass="game-button, btn-opt3" text="Option C" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-                <Button fx:id="btn4" prefHeight="100" prefWidth="250" styleClass="btn, btn-success, btn-lg" text="Option D" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="btn4" prefHeight="85" prefWidth="300" style="-fx-font-size: 24px;" styleClass="game-button, btn-opt4" text="Option D" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <columnConstraints>
                     <ColumnConstraints />
                     <ColumnConstraints />
@@ -58,7 +76,8 @@
                 </rowConstraints>
             </GridPane>
 
-            <Button fx:id="restartBtn" managed="false" style="-fx-font-weight: bold; -fx-padding: 10 30 10 30;" styleClass="btn, btn-info, btn-lg" text="PLAY AGAIN" visible="false" />
+            <Button fx:id="restartBtn" managed="false" prefHeight="56.0" prefWidth="200.0" styleClass="game-button" text="PLAY AGAIN" visible="false" />
+            <Button fx:id="mainMenuBtn" managed="false" prefHeight="56.0" prefWidth="200.0" styleClass="game-button" text="MAIN MENU" visible="false" />
         </VBox>
     </children>
 </AnchorPane>
