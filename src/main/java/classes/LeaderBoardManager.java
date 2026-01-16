@@ -14,10 +14,15 @@ public class LeaderBoardManager {
         // Initialize table in Postgres
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS leaderboard (" +
-                    "name VARCHAR(255) PRIMARY KEY, " +
+            String sqlAlg = "CREATE TABLE IF NOT EXISTS alg_leaderboard (" +
+                    "name VARCHAR(50) PRIMARY KEY, " +
                     "score INTEGER NOT NULL)";
-            stmt.execute(sql);
+            stmt.execute(sqlAlg);
+
+            String sqlBin = "CREATE TABLE IF NOT EXISTS bin_leaderboard (" +
+                    "name VARCHAR(50) PRIMARY KEY, " +
+                    "score INTEGER NOT NULL)";
+            stmt.execute(sqlBin);
         } catch (SQLException e) {
             System.err.println("Database init error: " + e.getMessage());
         }
@@ -27,13 +32,22 @@ public class LeaderBoardManager {
         return DriverManager.getConnection(DB_URL, USER, PASS);
     }
 
+    private static String getTableName(String mode) {
+        return "BINARY".equalsIgnoreCase(mode) ? "bin_leaderboard" : "alg_leaderboard";
+    }
+
     public static void saveScore(String name, int newScore) {
+        saveScore(name, newScore, MainMenuController.gameMode);
+    }
+
+    public static void saveScore(String name, int newScore, String mode) {
+        String tableName = getTableName(mode);
         // PostgreSQL "UPSERT" syntax (Insert or Update on Conflict)
         // Only updates the score if the new score (EXCLUDED.score) is higher than the existing one
-        String upsertSQL = "INSERT INTO leaderboard (name, score) VALUES (?, ?) " +
+        String upsertSQL = "INSERT INTO " + tableName + " (name, score) VALUES (?, ?) " +
                 "ON CONFLICT (name) DO UPDATE " +
                 "SET score = EXCLUDED.score " +
-                "WHERE EXCLUDED.score > leaderboard.score";
+                "WHERE EXCLUDED.score > " + tableName + ".score";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(upsertSQL)) {
@@ -48,8 +62,13 @@ public class LeaderBoardManager {
     }
 
     public static List<String> getSortedScores() {
+        return getSortedScores(MainMenuController.gameMode);
+    }
+
+    public static List<String> getSortedScores(String mode) {
+        String tableName = getTableName(mode);
         List<String> scores = new ArrayList<>();
-        String query = "SELECT name, score FROM leaderboard ORDER BY score DESC";
+        String query = "SELECT name, score FROM " + tableName + " ORDER BY score DESC";
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();

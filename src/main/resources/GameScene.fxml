@@ -47,7 +47,7 @@
             </StackPane>
             <ScrollPane fx:id="historyScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="150.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-background: transparent;">
                 <content>
-                    <VBox fx:id="questionBox" alignment="CENTER" spacing="10.0" style="-fx-font-size: 48px; -fx-font-weight: bold; -fx-background-radius: 20;" styleClass="question-box">
+                    <VBox fx:id="questionBox" alignment="CENTER" spacing="10.0" style="-fx-font-size: 36px; -fx-font-family: 'Consolas', 'Monospaced'; -fx-font-weight: bold; -fx-background-radius: 20;" styleClass="question-box">
                         <padding>
                             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </padding>

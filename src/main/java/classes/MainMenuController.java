@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kordamp.bootstrapfx.BootstrapFX;
@@ -21,6 +22,9 @@ import java.io.IOException;
 
 public class MainMenuController extends Application {
 
+    // Static variable to access the selected mode from GameController
+    public static String gameMode = "STANDARD";
+
     @FXML private AnchorPane rootPane;
     @FXML private Label titleLabel;
     @FXML private Button playBtn;
@@ -28,6 +32,7 @@ public class MainMenuController extends Application {
     @FXML private Button themeBtn;
     @FXML private Button quitBtn;
     @FXML private Button muteBtn;
+    @FXML private StackPane modeSelectionPopup;
 
     @FXML
     public void initialize() {
@@ -62,7 +67,25 @@ public class MainMenuController extends Application {
 
 
     @FXML
-    public void PlayGame() throws IOException {
+    public void PlayGame() {
+        modeSelectionPopup.setVisible(true);
+        SoundManager.play(SoundManager.Sound.CLICK);
+    }
+
+    @FXML
+    public void closePopup() {
+        modeSelectionPopup.setVisible(false);
+    }
+
+    @FXML
+    public void startStandard() throws IOException {
+        gameMode = "STANDARD";
+        new SceneSwitch(rootPane, "/GameScene.fxml");
+    }
+
+    @FXML
+    public void startBinary() throws IOException {
+        gameMode = "BINARY";
         new SceneSwitch(rootPane, "/GameScene.fxml");
     }
 

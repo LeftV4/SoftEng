@@ -142,7 +142,7 @@ public class GameController {
 
         // 2. Reset UI
         questionLabel.setText("Get Ready...");
-        questionLabel.setStyle("-fx-font-size: 48px; -fx-font-weight: bold;"); // Reset font size
+        // questionLabel style is now handled by FXML/CSS mostly, avoiding hard override that breaks monospaced font
         questionBox.getChildren().removeIf(node -> node instanceof Label && node != questionLabel);
         questionBox.getChildren().add(questionLabel);
         restartBtn.setVisible(false);
@@ -254,14 +254,14 @@ public class GameController {
 
         resetAnswerButtons();
         startTimer();
-        currentQuestion = engine.generateQuestion(difficulty);
+        currentQuestion = engine.generateQuestion(difficulty, MainMenuController.gameMode);
 
         questionLabel.setText(currentQuestion.getExpression() + " = ?");
 
-        btn1.setText(String.valueOf(currentQuestion.getChoices().get(0)));
-        btn2.setText(String.valueOf(currentQuestion.getChoices().get(1)));
-        btn3.setText(String.valueOf(currentQuestion.getChoices().get(2)));
-        btn4.setText(String.valueOf(currentQuestion.getChoices().get(3)));
+        btn1.setText(formatAnswer(currentQuestion.getChoices().get(0)));
+        btn2.setText(formatAnswer(currentQuestion.getChoices().get(1)));
+        btn3.setText(formatAnswer(currentQuestion.getChoices().get(2)));
+        btn4.setText(formatAnswer(currentQuestion.getChoices().get(3)));
     }
 
     private void checkAnswer(int buttonIndex) {
@@ -339,9 +339,17 @@ public class GameController {
 
         // Show History
         for (QuestionHistory entry : history) {
+            String selectedStr = "BINARY".equalsIgnoreCase(MainMenuController.gameMode)
+                    ? Integer.toBinaryString(entry.selectedAnswer)
+                    : String.valueOf(entry.selectedAnswer);
+
+            String correctStr = "BINARY".equalsIgnoreCase(MainMenuController.gameMode)
+                    ? Integer.toBinaryString(entry.question.getCorrectAnswer())
+                    : String.valueOf(entry.question.getCorrectAnswer());
+
             String resultText = entry.isCorrect
-                    ? String.format("%s = %d ✓", entry.question.getExpression(), entry.selectedAnswer)
-                    : String.format("%s = %d (Correct: %d) ✗", entry.question.getExpression(), entry.selectedAnswer, entry.question.getCorrectAnswer());
+                    ? String.format("%s = %s ✓", entry.question.getExpression(), selectedStr)
+                    : String.format("%s = %s (Correct: %s) ✗", entry.question.getExpression(), selectedStr, correctStr);
 
             Label historyLabel = new Label(resultText);
             // Paint correct answers green and wrong answers red
@@ -579,5 +587,20 @@ public class GameController {
             pt.setOnFinished(e -> gameRoot.getChildren().remove(floatingLabel));
             pt.play();
         }
+    }
+
+    private String formatAnswer(int value) {
+        if ("BINARY".equalsIgnoreCase(MainMenuController.gameMode)) {
+            int bits;
+            if (difficulty <= 5) {
+                bits = 4;
+            } else if (difficulty <= 10) {
+                bits = 6;
+            } else {
+                bits = 8;
+            }
+            return String.format("%" + bits + "s", Integer.toBinaryString(value)).replace(' ', '0');
+        }
+        return String.valueOf(value);
     }
 }
