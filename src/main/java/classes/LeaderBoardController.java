@@ -99,16 +99,16 @@ public class LeaderBoardController {
                 row.setStyle("-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 10;");
 
                 Label rankLabel = new Label("#" + (i + 1));
-                rankLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+                rankLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
                 Label nameLabel = new Label(name);
-                nameLabel.setStyle("-fx-font-size: 20px;");
+                nameLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 
                 Region spacer = new Region();
                 HBox.setHgrow(spacer, Priority.ALWAYS);
 
                 Label scoreLabel = new Label(scoreVal);
-                scoreLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+                scoreLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
 
                 // Apply Gold/Silver/Bronze styling
                 if (i == 0) {
@@ -118,8 +118,8 @@ public class LeaderBoardController {
                     scoreLabel.setStyle(scoreLabel.getStyle() + gold);
                     row.setStyle(row.getStyle() + "-fx-border-color: #FFD700; -fx-border-width: 2; -fx-border-radius: 10;");
 
-                    DropShadow glow = new DropShadow(20, Color.web("#FFD700"));
-                    glow.setSpread(0.3);
+                    DropShadow glow = new DropShadow(15, Color.web("#FFD700"));
+                    glow.setSpread(0.2);
                     row.setEffect(glow);
                 } else if (i == 1) {
                     String silver = "-fx-text-fill: #C0C0C0;";
@@ -128,8 +128,8 @@ public class LeaderBoardController {
                     scoreLabel.setStyle(scoreLabel.getStyle() + silver);
                     row.setStyle(row.getStyle() + "-fx-border-color: #C0C0C0; -fx-border-width: 2; -fx-border-radius: 10;");
 
-                    DropShadow glow = new DropShadow(20, Color.web("#C0C0C0"));
-                    glow.setSpread(0.3);
+                    DropShadow glow = new DropShadow(15, Color.web("#C0C0C0"));
+                    glow.setSpread(0.2);
                     row.setEffect(glow);
                 } else if (i == 2) {
                     String bronze = "-fx-text-fill: #CD7F32;";
@@ -138,8 +138,8 @@ public class LeaderBoardController {
                     scoreLabel.setStyle(scoreLabel.getStyle() + bronze);
                     row.setStyle(row.getStyle() + "-fx-border-color: #CD7F32; -fx-border-width: 2; -fx-border-radius: 10;");
 
-                    DropShadow glow = new DropShadow(20, Color.web("#CD7F32"));
-                    glow.setSpread(0.3);
+                    DropShadow glow = new DropShadow(15, Color.web("#CD7F32"));
+                    glow.setSpread(0.2);
                     row.setEffect(glow);
                 }
 

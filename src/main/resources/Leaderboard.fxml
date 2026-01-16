@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 
 <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.LeaderBoardController">
    <children>
@@ -17,13 +17,13 @@
       <Label rotate="10.0" styleClass="math-symbol" text="÷" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
       <Label rotate="-15.0" styleClass="math-symbol" text="-" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="40.0" />
 
-      <StackPane layoutX="100.0" layoutY="45.0" styleClass="title-banner" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="45.0">
+      <StackPane layoutX="100.0" layoutY="30.0" styleClass="title-banner" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
          <children>
             <Label styleClass="leaderboard-title" text="🏆LEADERBOARD🏆" />
          </children>
       </StackPane>
 
-      <HBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+      <HBox alignment="CENTER" layoutY="130.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
          <children>
             <Button fx:id="standardBtn" mnemonicParsing="false" prefWidth="150.0" styleClass="game-button" text="Numbers" />
             <Button fx:id="binaryBtn" mnemonicParsing="false" prefWidth="150.0" styleClass="game-button" text="Binary" />
@@ -31,9 +31,9 @@
       </HBox>
 
       <!-- Container for the leaderboard -->
-      <StackPane style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 20;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="166.0">
+      <StackPane layoutY="198.4" prefHeight="322.0" prefWidth="720.0" style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 20;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="198.0">
          <children>
-            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" styleClass="scroll-pane">
+            <ScrollPane fitToWidth="true" prefHeight="326.0" prefWidth="720.0" style="-fx-background-color: transparent; -fx-background: transparent;" styleClass="scroll-pane">
                <content>
                   <VBox fx:id="leaderboardBox" alignment="TOP_CENTER" spacing="10.0">
                      <padding>
