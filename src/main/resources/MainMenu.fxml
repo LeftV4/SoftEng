@@ -2,16 +2,53 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.MainMenuController">
    <children>
-      <Label alignment="CENTER" layoutX="218.0" layoutY="39.0" prefHeight="17.0" prefWidth="165.0" text="Math Quiz" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Button layoutX="268.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#PlayGame" prefHeight="25.0" prefWidth="65.0" text="Play" />
-      <Button layoutX="253.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#LeaderBoard" prefHeight="25.0" prefWidth="95.0" text="Leaderboard" />
+      <!-- Background Decorations (Floating Symbols) -->
+      <Label rotate="-20.0" styleClass="math-symbol" text="+" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      <Label rotate="15.0" styleClass="math-symbol" text="×" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
+      <Label rotate="10.0" styleClass="math-symbol" text="÷" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
+      <Label rotate="-15.0" styleClass="math-symbol" text="-" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="40.0" />
+
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="35.0" styleClass="menu-box" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <StackPane styleClass="title-banner">
+               <children>
+                  <VBox alignment="CENTER" spacing="-5.0">
+                     <children>
+                        <Label fx:id="titleLabel" styleClass="title-text" text="MATH QUIZ" />
+                        <Label styleClass="subtitle-text" text="CHALLENGE YOUR BRAIN" />
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+            <Button fx:id="playBtn" mnemonicParsing="false" onAction="#PlayGame" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Play" />
+            <Button fx:id="leaderboardBtn" mnemonicParsing="false" onAction="#LeaderBoard" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Leaderboard" />
+            <Button fx:id="themeBtn" mnemonicParsing="false" onAction="#ChangeTheme" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Change Theme" />
+            <Button fx:id="quitBtn" mnemonicParsing="false" onAction="#Quit" prefHeight="75.0" prefWidth="300.0" style="-fx-font-size: 24px;" styleClass="game-button" text="Quit" />
+         </children>
+      </VBox>
+      <Button fx:id="muteBtn" mnemonicParsing="false" style="-fx-font-size: 18px; -fx-padding: 10;" styleClass="game-button" text="🔊" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="768.0" layoutY="575.0" styleClass="footer-text" text="v1.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+
+      <!-- Mode Selection Popup -->
+      <StackPane fx:id="modeSelectionPopup" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <!-- Dark Overlay -->
+            <AnchorPane onMouseClicked="#closePopup" style="-fx-background-color: rgba(0, 0, 0, 0.5);" />
+            <!-- Popup Box -->
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 5);">
+               <children>
+                  <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Select Mode" />
+                  <Button mnemonicParsing="false" onAction="#startStandard" prefWidth="220.0" styleClass="game-button" text="Numbers" />
+                  <Button mnemonicParsing="false" onAction="#startBinary" prefWidth="220.0" styleClass="game-button" text="Bits (Binary)" />
+                  <Button mnemonicParsing="false" onAction="#closePopup" style="-fx-background-color: #ff6b6b; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="game-button" text="Cancel" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <Label layoutX="8.0" layoutY="565.0" prefHeight="15.0" prefWidth="115.0" styleClass="footer-text" text="Music by aggro.3.1" />
+      <Label layoutX="8.0" layoutY="583.0" prefHeight="15.0" prefWidth="115.0" styleClass="footer-text" text="on discord" />
    </children>
 </AnchorPane>

@@ -1,0 +1,300 @@
+
+/* BUTTON CLASS AND STYLES */
+.label {
+    -fx-text-fill: #333333;
+}
+
+.question-box {
+    -fx-background-color: rgba(0,0,0,0.15);
+}
+
+.root.dark-mode .question-box {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+.root {
+    /* Light Mode Palette (Default) */
+    -fx-game-primary: #4facfe;      /* Bright Blue */
+    -fx-game-secondary: #00f2fe;    /* Cyan */
+    -fx-game-border: #1a1a1a;       /* Dark border for contrast */
+    -fx-game-text: #ffffff;
+    -fx-game-shadow: rgba(0, 0, 0, 0.3);
+    
+    /* Pre-calculated hover colors to fix gradient parsing issues */
+    -fx-game-primary-hover: derive(-fx-game-primary, 20%);
+    -fx-game-secondary-hover: derive(-fx-game-secondary, 20%);
+    -fx-game-bg-light: derive(-fx-game-primary, 90%);
+
+    /* Global Background (Light Mode: Vibrant Gradient) */
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, -fx-game-secondary);
+}
+
+.root.dark-mode {
+    /* Dark Mode Palette (Deep Blue/Cyber vibe) */
+    -fx-game-primary: #003366;      /* Midnight Blue (Lightened) */
+    -fx-game-secondary: #00509E;    /* Deep Blue (Lightened) */
+    -fx-game-border: #4facfe;       /* Bright Blue border (matches light mode) */
+    -fx-game-text: #ffffff;
+    -fx-game-shadow: rgba(0, 0, 0, 0.8);
+
+    /* Global Background (Dark Mode: Deep Radial Vignette) */
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, -fx-game-primary, #001020);
+}
+
+.game-button {
+    -fx-background-color: linear-gradient(to bottom, -fx-game-primary, -fx-game-secondary);
+    -fx-text-fill: -fx-game-text;
+    -fx-font-family: "Segoe UI Black"; /* Clean, bold font */
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 24px;
+    
+    /* The "Gamey" Look: Thick borders and rounded corners */
+    -fx-border-color: -fx-game-border;
+    -fx-border-width: 2px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    
+    /* 3D Pop Effect (Hard shadow) */
+    -fx-effect: dropshadow(one-pass-box, -fx-game-shadow, 0, 0, 0, 5);
+    
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+.game-button:hover {
+    /* Brighten slightly on hover */
+    -fx-background-color: linear-gradient(to bottom, -fx-game-primary-hover, -fx-game-secondary-hover);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.game-button:pressed {
+    /* Simulate physical press: Move down and remove shadow */
+    -fx-translate-y: 5;
+    -fx-effect: dropshadow(one-pass-box, transparent, 0, 0, 0, 0);
+}
+
+/* TITLE SCREEN STYLES */
+.title-banner {
+    -fx-background-color: linear-gradient(to right, -fx-game-primary, -fx-game-secondary);
+    -fx-background-radius: 20;
+    -fx-border-color: -fx-game-border;
+    -fx-border-width: 4px;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, -fx-game-shadow, 15, 0, 5, 10);
+    -fx-padding: 15px 50px;
+    -fx-rotate: -3; /* A slight tilt makes it look more playful */
+}
+
+.title-text {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 48px;
+    -fx-text-fill: white;
+    -fx-stroke: -fx-game-border;
+    -fx-stroke-width: 2px;
+}
+/* END OF BUTTON CLASSES */
+
+/* MENU PANEL (The container for buttons) */
+.menu-box {
+    /* Transparent container to let the root background shine through */
+    -fx-background-color: transparent;
+}
+
+.root.dark-mode .menu-box {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: null;
+}
+
+.root.dark-mode .label {
+    -fx-text-fill: white;
+}
+
+/* --- NEW ADDITIONS FOR GAMEPLAY --- */
+
+/* INPUT FIELDS (Name Entry) */
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 10;
+    -fx-border-color: -fx-game-primary;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10;
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+}
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(one-pass-box, -fx-game-primary, 10, 0, 0, 0);
+}
+
+/* SCROLL BARS (Sleek & Modern) */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+}
+.scroll-bar .thumb {
+    -fx-background-color: -fx-game-primary;
+    -fx-background-radius: 5em;
+}
+.scroll-bar .track {
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 5em;
+}
+
+/* GAMEPLAY BUTTONS (Bootstrap-style but Gamey) */
+.btn {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: rgba(0,0,0,0.2);
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3), 0, 4, 0, 0);
+}
+.btn:pressed {
+    -fx-translate-y: 4;
+    -fx-effect: none;
+}
+
+/* Button Color Variants */
+.btn-danger  { -fx-background-color: linear-gradient(to bottom, #ff5f6d, #ffc371); }
+.btn-success { -fx-background-color: linear-gradient(to bottom, #11998e, #38ef7d); }
+.btn-warning { -fx-background-color: linear-gradient(to bottom, #f7971e, #ffd200); }
+.btn-primary { -fx-background-color: linear-gradient(to bottom, #2193b0, #6dd5ed); }
+.btn-info    { -fx-background-color: linear-gradient(to bottom, #8E2DE2, #4A00E0); }
+
+/* --- MAIN MENU DECORATIONS --- */
+
+.math-symbol {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 120px;
+    -fx-text-fill: #000080; /* Navy Blue */
+    -fx-opacity: 0.15;      /* Increased opacity to make them pop */
+}
+
+.root.dark-mode .math-symbol {
+    -fx-text-fill: white;
+    -fx-opacity: 0.05;
+}
+
+.subtitle-text {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3), 0, 2, 0, 0);
+    -fx-letter-spacing: 2px; /* Spaced out letters look cinematic */
+}
+
+.footer-text {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12px;
+    -fx-text-fill: derive(-fx-game-border, 50%);
+    -fx-opacity: 0.6;
+}
+
+/* LOADING SCREEN */
+.loading-box {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-padding: 30;
+    -fx-max-width: 250;
+    -fx-max-height: 150;
+}
+
+.root.dark-mode .loading-box {
+    -fx-background-color: rgba(0, 21, 41, 0.9);
+    -fx-border-color: -fx-game-secondary;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+}
+
+.loading-text {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-game-primary;
+}
+
+.root.dark-mode .loading-text {
+    -fx-text-fill: white;
+}
+
+.progress-indicator {
+    -fx-progress-color: -fx-game-secondary;
+}
+
+/* LEADERBOARD TABLE */
+.leaderboard-grid {
+    -fx-background-color: rgba(0, 0, 0, 0.6); /* Darker background for readability */
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+
+.leaderboard-header {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 16px;
+    -fx-text-fill: #888888; /* Muted color for headers */
+    -fx-alignment: CENTER;
+    -fx-padding: 0 0 10 0; /* Space below header */
+}
+
+.leaderboard-title {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 30px;
+    -fx-text-fill: #FFD700; /* Gold */
+    -fx-effect: dropshadow(one-pass-box, rgba(255,215,0,0.8), 10, 0, 0, 0);
+}
+
+.root.dark-mode .leaderboard-title {
+    -fx-text-fill: #FFD700;
+}
+
+/* COMBO TEXT */
+.combo-text {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 32px;
+    -fx-text-fill: #ff007f; /* Hot Pink */
+    -fx-effect: dropshadow(one-pass-box, white, 0, 0, 0, 0);
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
+}
+
+/* FLOATING SCORE POPUP */
+.floating-score {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 28px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(one-pass-box, black, 0, 2, 0, 0);
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+.floating-score.correct { -fx-text-fill: #2ecc71; }
+.floating-score.wrong   { -fx-text-fill: #e74c3c; }
+
+
+/* --- ANSWER BUTTON SPECIFIC STYLES --- */
+
+.btn-opt1 {
+    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
+}
+.btn-opt2 {
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+}
+.btn-opt3 {
+    -fx-background-color: linear-gradient(to bottom, #e67e22, #d35400);
+}
+.btn-opt4 {
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+}

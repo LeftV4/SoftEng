@@ -19,6 +19,13 @@ public class MathEngine {
         }
     }
 
+    public Question generateQuestion(int difficulty, String mode) {
+        if ("BINARY".equalsIgnoreCase(mode)) {
+            return generateBinary(difficulty);
+        }
+        return generateQuestion(difficulty);
+    }
+
     private Question generateBasic(int difficulty) {
         int a = random.nextInt(10 * difficulty) + 1;
         int b = random.nextInt(10 * difficulty) + 1;
@@ -72,6 +79,53 @@ public class MathEngine {
         return createQuestionObj(expr, result);
     }
 
+    private Question generateBinary(int difficulty) {
+        int bits;
+        if (difficulty <= 5) {
+            bits = 4; // 4-bit numbers
+        } else if (difficulty <= 10) {
+            bits = 6; // 6-bit numbers
+        } else {
+            bits = 8; // 8-bit numbers
+        }
+
+        int maxVal = 1 << bits;
+        int a = random.nextInt(maxVal);
+        int b = random.nextInt(maxVal);
+
+        int op = random.nextInt(5); // 0: AND, 1: OR, 2: XOR, 3: <<, 4: >>
+        int result;
+        String expr;
+        
+        // Format 'a' as binary string
+        String binA = String.format("%" + bits + "s", Integer.toBinaryString(a)).replace(' ', '0');
+
+        if (op <= 2) {
+            // Standard Bitwise Operations (AND, OR, XOR)
+            String symbol;
+            String binB = String.format("%" + bits + "s", Integer.toBinaryString(b)).replace(' ', '0');
+            
+            switch (op) {
+                case 0: result = a & b; symbol = "AND"; break;
+                case 1: result = a | b; symbol = "OR"; break;
+                default: result = a ^ b; symbol = "XOR"; break;
+            }
+            expr = binA + " " + symbol + " " + binB;
+        } else {
+            // Shift Operations (<<, >>) - Shift by a small amount (1-3)
+            int shift = random.nextInt(3) + 1; 
+            if (op == 3) {
+                result = a << shift;
+                expr = binA + " LSHIFT " + shift;
+            } else {
+                result = a >> shift;
+                expr = binA + " RSHIFT " + shift;
+            }
+        }
+
+        return createQuestionObj(expr, result);
+    }
+
     //Generates Wrong Answers
     private Question createQuestionObj(String expr, int result) {
         List<Integer> choices = new ArrayList<>();
@@ -82,7 +136,7 @@ public class MathEngine {
             int offset = random.nextInt(31) - 15;
             int wrong = result + offset;
 
-            if (wrong != result && !choices.contains(wrong) && wrong > 0) {
+            if (wrong != result && !choices.contains(wrong) && wrong >= 0) {
                 choices.add(wrong);
             }
         }

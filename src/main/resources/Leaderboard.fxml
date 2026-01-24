@@ -1,15 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.LeaderBoardController">
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.LeaderBoardController">
    <children>
-      <Label alignment="CENTER" layoutX="168.0" layoutY="14.0" prefHeight="17.0" prefWidth="264.0" text="LEADERBOARD" />
-      <ScrollPane layoutY="46.0" prefHeight="354.0" prefWidth="600.0">
-         <content>
-            <VBox fx:id="leaderboardBox" alignment="CENTER" prefHeight="352.0" prefWidth="592.0" />
-         </content></ScrollPane>
-      <Button layoutX="534.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#ExitLeaderboard" text="BACK" />
+      <!-- Background Decorations -->
+      <Label rotate="-20.0" styleClass="math-symbol" text="+" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      <Label rotate="15.0" styleClass="math-symbol" text="×" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
+      <Label rotate="10.0" styleClass="math-symbol" text="÷" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
+      <Label rotate="-15.0" styleClass="math-symbol" text="-" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="40.0" />
+
+      <StackPane layoutX="100.0" layoutY="30.0" styleClass="title-banner" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <Label styleClass="leaderboard-title" text="🏆LEADERBOARD🏆" />
+         </children>
+      </StackPane>
+
+      <HBox alignment="CENTER" layoutY="130.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <Button fx:id="standardBtn" mnemonicParsing="false" prefWidth="150.0" styleClass="game-button" text="Numbers" />
+            <Button fx:id="binaryBtn" mnemonicParsing="false" prefWidth="150.0" styleClass="game-button" text="Binary" />
+         </children>
+      </HBox>
+
+      <!-- Container for the leaderboard -->
+      <StackPane layoutY="198.4" prefHeight="322.0" prefWidth="720.0" style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 20;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="198.0">
+         <children>
+            <ScrollPane fitToWidth="true" prefHeight="326.0" prefWidth="720.0" style="-fx-background-color: transparent; -fx-background: transparent;" styleClass="scroll-pane">
+               <content>
+                  <VBox fx:id="leaderboardBox" alignment="TOP_CENTER" spacing="10.0">
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </StackPane>
+
+      <StackPane fx:id="loadingLayer" visible="false" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <VBox alignment="CENTER" spacing="15.0" styleClass="loading-box">
+               <children>
+                  <Label fx:id="loadingSpinner" style="-fx-font-size: 60px;" styleClass="loading-text" text="⏳" />
+                  <Label styleClass="loading-text" text="LOADING SCORES..." />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+
+      <Button fx:id="backBtn" layoutX="348.0" layoutY="526.0" mnemonicParsing="false" onAction="#exitLeaderboard" prefHeight="54.0" prefWidth="103.0" styleClass="game-button" text="BACK" AnchorPane.bottomAnchor="19.600000000000023" AnchorPane.rightAnchor="348.8" />
    </children>
 </AnchorPane>
