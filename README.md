@@ -16,5 +16,5 @@ The game challenges players with timed arithmetic questions, optional binary-mod
 - @LeftV4
 - @aliax2004
 
-## LICENSE 
-This project does not currently include a formal license file. Please check with the repository owner before redistributing or using it in other projects.
+## LICENSE
+This project is licensed under the MIT License. See the LICENSE file for details.
