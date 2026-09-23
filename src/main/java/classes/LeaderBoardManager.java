@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderBoardManager {
-    // Replace placeholders with your actual PostgreSQL credentials
     private static final String DB_URL = "jdbc:postgresql://dblabs.iee.ihu.gr:5432/alexkara5";
-    private static final String USER = "alexkara5";
-    private static final String PASS = "smth2025";
+    private static final String DB_USER_ENV = "DB_USER";
+    private static final String DB_PASSWORD_ENV = "DB_PASSWORD";
 
     static {
         // Initialize table in Postgres
@@ -29,7 +28,14 @@ public class LeaderBoardManager {
     }
 
     private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, USER, PASS);
+        String user = System.getenv(DB_USER_ENV);
+        String password = System.getenv(DB_PASSWORD_ENV);
+
+        if (user == null || user.isBlank() || password == null || password.isBlank()) {
+            throw new SQLException("Missing required database environment variables: " + DB_USER_ENV + " and/or " + DB_PASSWORD_ENV);
+        }
+
+        return DriverManager.getConnection(DB_URL, user, password);
     }
 
     private static String getTableName(String mode) {
